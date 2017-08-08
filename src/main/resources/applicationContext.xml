@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.w3.org/2001/XMLSchema-instance
+                        http://www.w3.org/2001/XMLSchema-instance.xsd
+                        http://www.springframework.org/schema/p
+                        http://www.springframework.org/schema/p.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/tx
+ 	                    http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/data/mongo
+                        http://www.springframework.org/schema/data/mongo/spring-mongo.xsd ">
+    <!-- 导入配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:application.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 开启注解 -->
+    <context:annotation-config/>
+    <!-- 自动注入扫描路径  -->
+    <context:component-scan base-package="com.rpm.demo.spring"/>
+
+
+    <!-- 数据连接池 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="maxIdle" value="${jdbc.maxIdle}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+
+
+        <!--maxActive: 最大连接数量-->
+        <!--minIdle: 最小空闲连接-->
+        <!--maxIdle: 最大空闲连接-->
+        <!--initialSize: 初始化连接-->
+        <!-- logAbandoned连接被泄露时是否打印 -->
+        <!--removeAbandoned: 是否自动回收超时连接-->
+        <!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->
+        <!--maxWait: 超时等待时间以毫秒为单位 10000等于60秒-->
+        <!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位. -->
+        <!--  在每次空闲连接回收器线程(如果有)运行时检查的连接数量 -->
+        <!-- 1000 * 60 * 30  连接在池中保持空闲而不被空闲连接回收器线程-->
+        <property name="validationQuery" value="SELECT NOW() FROM DUAL"/>
+    </bean>
+    <bean id="sessionFactory"
+          class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+    </bean>
+    <!--指向dao的文件夹-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.rpm.demo.spring.dao"/>
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 通过AOP配置提供事务增强，让service包下所有Bean的所有方法拥有事务 -->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="serviceMethod"
+                      expression="execution(* com.rpm.demo.spring.service..*(..))or(execution (* com.rpm.demo.spring.service..*(..)))"/>
+        <aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
+    </aop:config>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="modify*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+            <tx:method name="*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+    <!--mongodb 配置-->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    </bean>
+    <!--连接池配置-->
+    <mongo:mongo host="${mongo.host}" port="${mongo.port}">
+        <mongo:options connections-per-host="${mongo.options.connections-per-host}"
+                       threads-allowed-to-block-for-connection-multiplier="${mongo.options.threads-allowed-to-block-for-connection-multiplier}"
+                       connect-timeout="${mongo.options.connect-timeout}"
+                       max-wait-time="${mongo.options.max-wait-time}"
+                       auto-connect-retry="${mongo.options.auto-connect-retry}"
+                       socket-keep-alive="${mongo.options.socket-keep-alive}"
+                       socket-timeout="${mongo.options.socket-timeout}"
+                       slave-ok="${mongo.options.slave-ok}"
+                       write-number="${mongo.options.write-number}"
+                       write-timeout="${mongo.options.write-timeout}"
+                       write-fsync="${mongo.options.write-fsync}"/>
+    </mongo:mongo>
+    <!--连接池工厂配置-->
+    <mongo:db-factory dbname="${mongo.dbname}" username="${mongo.username}" password="${mongo.password}"
+                      mongo-ref="mongo"/>
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+    <!--实体映射自动扫描注入的包-->
+    <mongo:mapping-converter>
+        <mongo:custom-converters base-package="com.rpm.demo.spring"/>
+    </mongo:mapping-converter>
+    <!--spring redis and session  -->
+
+
+
+
+
+    <!--<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>-->
+    <!--<bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"/>-->
+    <bean id="redisHttpSessionConfiguration"
+          class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="maxInactiveIntervalInSeconds" value="600"/>
+    </bean>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.maxTotal}" />
+        <property name="maxIdle" value="${redis.maxIdle}" />
+    </bean>
+
+    <bean id="redisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" destroy-method="destroy">
+        <property name="hostName" value="${redis.hostName}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.password}" />
+        <property name="timeout" value="${redis.timeout}"/>
+        <property name="usePool" value="${redis.usePool}"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory"   ref="redisConnectionFactory" />
+    </bean>
+
+</beans>
