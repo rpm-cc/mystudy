@@ -29,4 +29,5 @@ public class UserMenue implements Serializable {
     public void setMenues(List<Menue> menues) {
         this.menues = menues;
     }
+
 }
