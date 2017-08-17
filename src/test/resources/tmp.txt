@@ -1,0 +1,11 @@
+db.createUser(
+  {
+    user: "admin",
+    pwd: "14343342",
+    roles: [
+       { role: "readWrite", db: "admin" },
+       { role: "readWrite", db: "rpmdemo" },
+       { role: "read", db: "local" }
+    ]
+  }
+)
