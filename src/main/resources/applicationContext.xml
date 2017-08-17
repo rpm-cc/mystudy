@@ -24,7 +24,6 @@
                         http://www.springframework.org/schema/data/mongo
                         http://www.springframework.org/schema/data/mongo/spring-mongo.xsd ">
     <!-- 导入配置文件 -->
-    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="order" value="1"/>
@@ -64,8 +63,12 @@
         <!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位. -->
         <!--  在每次空闲连接回收器线程(如果有)运行时检查的连接数量 -->
         <!-- 1000 * 60 * 30  连接在池中保持空闲而不被空闲连接回收器线程-->
+
+
         <property name="validationQuery" value="SELECT NOW() FROM DUAL"/>
     </bean>
+
+
     <bean id="sessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource">
