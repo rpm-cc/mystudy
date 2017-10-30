@@ -36,7 +36,9 @@ public class JavaOne {
 
     }
 
-
+    public void  mapOpration(){
+        
+    }
 
     public static void main(String[] args) {
 
