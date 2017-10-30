@@ -1,5 +1,8 @@
 package com.rpm.demo.function;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by gc-rise on 2017/9/13.
  */
@@ -37,7 +40,7 @@ public class JavaOne {
     }
 
     public void  mapOpration(){
-        
+        Map map = new HashMap<>();
     }
 
     public static void main(String[] args) {

@@ -132,15 +132,11 @@
     </mongo:mapping-converter>
     <!--spring redis and session  -->
 
-
-
-
-
     <!--<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>-->
     <!--<bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"/>-->
     <bean id="redisHttpSessionConfiguration"
           class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-        <property name="maxInactiveIntervalInSeconds" value="600"/>
+        <property name="maxInactiveIntervalInSeconds" value="256"/>
     </bean>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -158,7 +154,7 @@
         <property name="poolConfig" ref="jedisPoolConfig"/>
     </bean>
 
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
         <property name="connectionFactory"   ref="redisConnectionFactory" />
     </bean>
 

@@ -22,8 +22,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         System.out.println("path" + request.getServletPath());
-        return  SessionManger.isAuth(request,response);
-        //return true;
+       // return  SessionManger.isAuth(request,response);
+        return true;
 
 
     }
