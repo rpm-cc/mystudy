@@ -24,6 +24,7 @@ import java.util.Map;
 public class DemoController extends BaseController {
     @Autowired
     SystemService sysService;
+
     @RequestMapping("wellcome")
     public String wellcome(HttpServletRequest request, HttpServletResponse response, Model model) {
         super.init(request, model);
@@ -62,7 +63,6 @@ public class DemoController extends BaseController {
 
         try {
             sysService.getMenues(user.getId());
-
 
 
         } catch (Exception e) {

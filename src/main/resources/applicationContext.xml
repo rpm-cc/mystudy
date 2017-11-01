@@ -39,7 +39,7 @@
     <!-- 自动注入扫描路径  -->
     <context:component-scan base-package="com.rpm.demo.spring"/>
 
-
+    <!--##################################################################################################-->
     <!-- 数据连接池 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
@@ -50,8 +50,6 @@
         <property name="minIdle" value="${jdbc.minIdle}"/>
         <property name="maxIdle" value="${jdbc.maxIdle}"/>
         <property name="initialSize" value="${jdbc.initialSize}"/>
-
-
         <!--maxActive: 最大连接数量-->
         <!--minIdle: 最小空闲连接-->
         <!--maxIdle: 最大空闲连接-->
@@ -63,12 +61,8 @@
         <!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位. -->
         <!--  在每次空闲连接回收器线程(如果有)运行时检查的连接数量 -->
         <!-- 1000 * 60 * 30  连接在池中保持空闲而不被空闲连接回收器线程-->
-
-
         <property name="validationQuery" value="SELECT NOW() FROM DUAL"/>
     </bean>
-
-
     <bean id="sessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource">
@@ -101,7 +95,7 @@
         </tx:attributes>
     </tx:advice>
 
-
+    <!--##################################################################################################-->
     <!--mongodb 配置-->
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -131,12 +125,12 @@
         <mongo:custom-converters base-package="com.rpm.demo.spring"/>
     </mongo:mapping-converter>
     <!--spring redis and session  -->
-
+    <!--##################################################################################################-->
     <!--<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>-->
     <!--<bean class="org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory"/>-->
     <bean id="redisHttpSessionConfiguration"
           class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-        <property name="maxInactiveIntervalInSeconds" value="256"/>
+        <property name="maxInactiveIntervalInSeconds" value="600"/>
     </bean>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -158,4 +152,20 @@
         <property name="connectionFactory"   ref="redisConnectionFactory" />
     </bean>
 
+    <!--##################################################################################################-->
+    <!-- 异步线程池 -->
+    <bean id="threadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数  -->
+        <property name="corePoolSize" value="10" />
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="50" />
+        <!-- 队列最大长度 >=mainExecutor.maxSize -->
+        <property name="queueCapacity" value="1000" />
+        <!-- 线程池维护线程所允许的空闲时间 -->
+        <property name="keepAliveSeconds" value="300" />
+        <!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+        </property>
+    </bean>
 </beans>
