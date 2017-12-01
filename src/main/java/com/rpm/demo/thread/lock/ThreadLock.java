@@ -1,4 +1,4 @@
-package cn.rpm.learn.extend.lock;
+package com.rpm.demo.thread.lock;
 
 
 /**

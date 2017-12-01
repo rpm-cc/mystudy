@@ -1,4 +1,4 @@
-package cn.rpm.learn.extend.threadpool;
+package com.rpm.demo.thread.threadpool;
 
 /**
  * Created by renpiming on 2017/11/11.
