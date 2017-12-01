@@ -1,0 +1,46 @@
+package cn.rpm.learn.extend.threadpool;
+
+import java.util.concurrent.*;
+
+/**
+ * Created by renpiming on 2017/11/11.
+ */
+public class ThreadPoolExample {
+    public void exampleCachedThreadPool(){
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        for (int i=0 ;i<10;i++){
+            executorService.execute(new Worker1("this is exampleCachedThreadPool"));
+            executorService.execute(new Worker2("this is exampleCachedThreadPool"));
+        }
+    }
+    public void exampleFixedThreadPool(){
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        Object o =new Object();
+        for (int i=0;i<10;i++){
+            executorService.execute(new Worker3("this is exampleFixedThreadPool"));
+        }
+
+    }
+
+    public void exampleSingleThreadExecutor(){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Worker1(null));
+
+    }
+
+    public void exampleScheduledThreadpool(){
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+        executorService.scheduleAtFixedRate(new Worker3("fixedRate"),1,3, TimeUnit.SECONDS);
+        executorService.scheduleWithFixedDelay(new Worker3("fixedDelay"),2,1,TimeUnit.SECONDS);
+    }
+
+
+    public static void main(String[] args) {
+        ThreadPoolExample example = new ThreadPoolExample();
+        example.exampleCachedThreadPool();
+        example.exampleFixedThreadPool();
+        example.exampleScheduledThreadpool();
+        example.exampleSingleThreadExecutor();
+    }
+
+}

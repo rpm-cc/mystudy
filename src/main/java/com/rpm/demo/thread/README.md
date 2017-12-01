@@ -1,0 +1,11 @@
+扩展学习：java原生线程池
+
+
+有四种线程池
+newCachedThreadPool
+newFixedThreadPool
+newSingleThreadExecutor
+newScheduledThreadPool
+
+在不同的线程对统一个对象进行处理时，如果是需要进行对象的修改工作就一定要注意不能
+破坏对象。就需要加入同步锁的机制来处理。但一定要注意死锁的发生。
