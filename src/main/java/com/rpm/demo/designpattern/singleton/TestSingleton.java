@@ -16,5 +16,9 @@ public class TestSingleton {
 
         System.out.println(singleton+"--"+singleton1);
 
+
+
+        EnumSingleton.instance.printInstance();
+        EnumSingleton.instance.print();
     }
 }
