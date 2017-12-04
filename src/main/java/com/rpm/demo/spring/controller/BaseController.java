@@ -51,7 +51,7 @@ public abstract class BaseController {
         }
         host=request.getServerName();
         int port = request.getServerPort();
-        if (port == 8080) {
+        if (port >80) {
             host = "http://" + host + ":" + port;
         } else {
             host = "http://" + host;

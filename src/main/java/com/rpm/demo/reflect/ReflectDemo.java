@@ -1,4 +1,4 @@
-package com.rpm.demo.thread.reflect;
+package com.rpm.demo.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

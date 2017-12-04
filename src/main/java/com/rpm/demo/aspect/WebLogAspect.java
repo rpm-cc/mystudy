@@ -24,7 +24,7 @@ public class WebLogAspect {
     private Logger logger = LoggerFactory.getLogger(getClass());
     ThreadLocal<Long> timeConsume = new ThreadLocal<>();
 
-    @Pointcut("execution(public * cn.rpm.learn..*.*(..))")
+    @Pointcut("execution(public * com.rpm.demo..*.*(..))")
     public void webLog() {
     }
 
@@ -54,7 +54,7 @@ public class WebLogAspect {
    /**
     <aop:config>
             <aop:aspect id="logMethod" ref="webLogAspect">
-                <aop:pointcut id="weblog" expression="execution(public * cn.rpm.learn..*.*(..))" />
+                <aop:pointcut id="weblog" expression="execution(public * com.rpm.demo..*.*(..))" />
                 <aop:before method="doBefore" pointcut-ref="logMethod" />
                 <aop:after method="doAfterReturning" pointcut-ref="logMethod" />
             </aop:aspect>
