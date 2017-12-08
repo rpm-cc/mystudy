@@ -44,7 +44,7 @@ public class ThreadLock {
 
     public void threadLocal(Worker worker) {
 
-        Thread thread1 = new Thread(new ThreadLocalDemo( "王刚", 50, 100000), "thread-1");
+        Thread thread1 = new Thread(new ThreadLocalDemo("王刚", 50, 100000), "thread-1");
         Thread thread2 = new Thread(new ThreadLocalDemo("程序猿", 23, 130000), "thread-2");
 
 
@@ -54,17 +54,16 @@ public class ThreadLock {
     }
 
 
-
     public static void main(String[] args) {
         Worker worker = new Worker();
 
         ThreadLock lock = new ThreadLock();
         //lock.unlock(worker);
         //lock.locked(worker);
-        //lock.deadLock();
-        for (int i = 0; i < 100; i++) {
-            lock.threadLocal(worker);
-        }
+        lock.deadLock();
+//        for (int i = 0; i < 100; i++) {
+//            lock.threadLocal(worker);
+//        }
 
     }
 }

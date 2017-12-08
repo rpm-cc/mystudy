@@ -4,6 +4,10 @@ import java.util.concurrent.Semaphore;
 
 /**
  * Created by renpiming on 2017/12/5.
+ * Semaphore 主要处理的是最大线程数量的问题。当一个处理使用多线程方式进行处理各自的任务时。
+ * 在同一时间段内允许的最大并发值
+ *
+ *
  */
 public class SemaphoreTest {
 

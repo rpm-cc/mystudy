@@ -1,5 +1,7 @@
 package com.rpm.demo.thread.lock;
 
+import com.rpm.demo.thread.deep.MyThreadExceptionHandler;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,11 +19,12 @@ public class WaitAnNotify {
         for (int i = 0; i < 1000; i++) {
             list.add(i);
         }
-        Thread t1 = new Thread(new JiShu(list));
-        Thread t2 = new Thread(new OuShu(list));
-        Thread t3 = new Thread(new NumDaemon());
+        Thread t1 = new Thread(new JiShu(list), "jishu");
+        Thread t2 = new Thread(new OuShu(list), "oushu");
+        Thread t3 = new Thread(new NumDaemon(), "daemon");
         t3.setDaemon(true);
         t1.start();
+        t1.setUncaughtExceptionHandler(new MyThreadExceptionHandler());
         t2.start();
         t3.start();
         try {
@@ -48,6 +51,7 @@ class JiShu implements Runnable {
     public void run() {
         synchronized (list) {
             int count = 1;
+
             for (int i : list) {
                 if (count % 100 == 0) {
                     try {
@@ -111,19 +115,19 @@ class OuShu implements Runnable {
     }
 }
 
-class NumDaemon implements Runnable{
-//用作守护线程，大体作用统计线程的执行时间。
+class NumDaemon implements Runnable {
+    //用作守护线程，大体作用统计线程的执行时间。
     @Override
     public void run() {
-        int sss=0;
-        while (true){
+        int sss = 0;
+        while (true) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            sss+=10;
-            System.out.println(sss+"ms was pass！！");
+            sss += 10;
+            // System.out.println(sss+"ms was pass！！");
         }
 
 
