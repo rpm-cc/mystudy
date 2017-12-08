@@ -9,3 +9,5 @@ If you like, welcome to join！
 【2】<a href="http://www.importnew.com/6461.html">枚举单例</a></br>
 【3】<a href="https://www.cnblogs.com/dolphin0520/p/3920397.html">多线程相关</a></br>
 【4】<a href="http://www.importnew.com/18459.html">多线程常见问题</a></br>
+【5】<a href="http://blog.csdn.net/ghsau/article/details/8108292">阻塞队列</a>
+【6】<a href="http://www.importnew.com/18459.html">40个线程常见问题</a>
