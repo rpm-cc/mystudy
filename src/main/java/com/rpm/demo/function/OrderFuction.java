@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by gc-rise on 2017/9/13.
  */
-public class JavaOne {
+public class OrderFuction {
     //从最简单的开始。排序
 
     int [] arr = {3,8,3,5,2,8,12,1,4,6};
@@ -47,7 +47,7 @@ public class JavaOne {
 
 
 
-        JavaOne one = new JavaOne();
+        OrderFuction one = new OrderFuction();
         one.bubbleSort();
     }
 

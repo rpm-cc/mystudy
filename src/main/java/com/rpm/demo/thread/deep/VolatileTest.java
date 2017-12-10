@@ -10,7 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class VolatileTest {
     volatile int vo = 0;
-    volatile   AtomicInteger atomic = new AtomicInteger();
+    volatile AtomicInteger atomic = new AtomicInteger();
+
     public void increase() {
         vo++;
     }
@@ -21,39 +22,25 @@ public class VolatileTest {
 
     public static void main(String[] args) {
 
-        final VolatileTest volatileTest = new VolatileTest();
+         VolatileTest volatileTest = new VolatileTest();
         for (int num = 0; num < 10; num++) {
             new Thread(() -> {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 1000; i++) {
                     volatileTest.increase();
+                    volatileTest.atomicIncrease();
+                }
             }).start();
             new Thread(() -> {
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 1000; i++) {
                     volatileTest.increase();
-            }).start();
-            new Thread(() -> {
-                for (int i = 0; i < 1000; i++)
-                    volatileTest.increase();
-            }).start();
-
-            new Thread(() -> {
-                for (int i = 0; i < 1000; i++)
                     volatileTest.atomicIncrease();
-            }).start();
-            new Thread(() -> {
-                for (int i = 0; i < 1000; i++)
-                    volatileTest.atomicIncrease();
-            }).start();
-            new Thread(() -> {
-                for (int i = 0; i < 1000; i++)
-                    volatileTest.atomicIncrease();
+                }
             }).start();
         }
         while (Thread.activeCount() > 1)  //保证前面的线程都执行完
             Thread.yield();
-
-
         System.out.println(volatileTest.vo);
         System.out.println(volatileTest.atomic.get());
+
     }
 }
