@@ -39,6 +39,7 @@ newScheduledThreadPool
      ReentrantLock  可重入锁
      ReadWriteLock   读锁和写锁；实现读与写，写与写互斥，读与读共享的方式。       
      synchronized 同步，是多线程机制中的基本锁机制。 
+     CompletionService 内部维护了一个LinkedBlockQueue<Future>, 当每个线程执行完毕后，就会将异步线程的执行结果加入到这个无界的阻塞队列中。
      死锁：  A,B两个线程。当运行处在一个相互等待对方释放自己需要的锁的时候就会进入死锁状态。    
      线程安全和线程不安全：线程安全和不安全只存在多线程情景下。
      阻塞队列：1. ArrayBlockQueue：一个由数组支持的有界阻塞队列。此队列按 FIFO（先进先出）原则对元素进行排序。创建其对象必须明确大小，像数组一样。
