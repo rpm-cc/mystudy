@@ -21,7 +21,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        System.out.println("path" + request.getServletPath());
+       // System.out.println("path" + request.getServletPath());
        // return  SessionManger.isAuth(request,response);
         return true;
 
@@ -30,19 +30,19 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("postHandle");
+        //System.out.println("postHandle");
         super.postHandle(request, response, handler, modelAndView);
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println("postHandle");
+        //System.out.println("postHandle");
         super.afterCompletion(request, response, handler, ex);
     }
 
     @Override
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("postHandle");
+        //System.out.println("postHandle");
 
         super.afterConcurrentHandlingStarted(request, response, handler);
     }

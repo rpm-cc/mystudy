@@ -1,4 +1,4 @@
-package com.rpm.demo.mq;
+package com.rpm.demo.mq.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

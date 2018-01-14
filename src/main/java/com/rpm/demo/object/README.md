@@ -8,7 +8,7 @@ ArrayList  默认容量：DEFAULT_CAPACITY = 10；
            最大容量：Integer.MAX_VALUE :
            扩容机制：oldCapacity + (oldCapacity >> 1)，即原集合长度的1.5倍。
 LinkedList 批量数组单元：BATCH_UNIT = 1 << 10; 1024
-           最呆数组单元：MAX_BATCH = 1 << 25;   33554432   
+           最大数组单元：MAX_BATCH = 1 << 25;   33554432   
 HasHMap    默认容量：DEFAULT_INITIAL_CAPACITY = 1 << 4； 16
            最大容量：MAXIMUM_CAPACITY = 1 << 30;
            扩容因子：DEFAULT_LOAD_FACTOR = 0.75f;

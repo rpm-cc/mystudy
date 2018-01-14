@@ -21,7 +21,7 @@ public class CyclicBarrierTest {
         int N = 4;
         CyclicBarrier barrier = new CyclicBarrier(N, () ->
                 System.out.println("当前线程" + Thread.currentThread().getName()));
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < 8; i++)
             new Writer(barrier).start();
     }
 
@@ -52,7 +52,7 @@ public class CyclicBarrierTest {
     }
 
     public static void main(String[] args) {
-        // barrier1();
+       // barrier1();
         barrier2();
     }
 }

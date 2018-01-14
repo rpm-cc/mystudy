@@ -5,6 +5,8 @@ import com.rpm.demo.spring.service.redis.impl.RedisServiceimpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,7 +23,8 @@ public class RedisOprationTest {
 
     @Autowired
     RedisServiceimpl redisService;
-
+    @Autowired
+    StringRedisTemplate template;
     @Test
     public  void test(){
         User user = new User();
@@ -32,4 +35,11 @@ public class RedisOprationTest {
         System.out.println(user1);
 
     }
+   @Test
+    public void test2(){
+
+
+
+    }
+
 }

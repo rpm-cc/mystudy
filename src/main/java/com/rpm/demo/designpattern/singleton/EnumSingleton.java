@@ -12,9 +12,9 @@ public enum EnumSingleton {
         System.out.println(EnumSingleton.instance);
     }
 
-   public void print(){
+    public void print(){
 
        System.out.println("print");
-   }
+    }
 
 }

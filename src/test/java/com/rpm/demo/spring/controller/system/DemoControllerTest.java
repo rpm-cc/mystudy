@@ -3,6 +3,7 @@ package com.rpm.demo.spring.controller.system;
 import com.rpm.demo.spring.beans.UserMenue;
 import com.rpm.demo.spring.commons.JsonUtil;
 import com.rpm.demo.spring.service.sys.SystemService;
+import com.rpm.demo.spring.service.user.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +19,27 @@ import static org.junit.Assert.*;
 //首先指定Junit的Runner
 @RunWith(SpringJUnit4ClassRunner.class)
 //指明配置文件所在
-@ContextConfiguration(locations="classpath:applicationContext.xml")
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 //指定事务管理器
-@Transactional(transactionManager="transactionManager")
+@Transactional(transactionManager = "transactionManager")
 //继承AbstractTransactionalJUnit4SpringContextTests来获取Spring上下文环境来获取Bean
 public class DemoControllerTest {
 
 
     @Autowired
     SystemService sysService;
+    @Autowired
+    UserService userService;
+
     @Test
     public void wellcome() throws Exception {
-        UserMenue userMenue  = sysService.getMenues(1);
+        UserMenue userMenue = sysService.getMenues(1);
         System.out.println(JsonUtil.toJson(userMenue));
     }
 
     @Test
     public void grid() throws Exception {
-
+        userService.getNameById(1);
     }
 
     @Test

@@ -37,7 +37,8 @@
     <!-- 开启注解 -->
     <context:annotation-config/>
     <!-- 自动注入扫描路径  -->
-    <context:component-scan base-package="com.rpm.demo.spring"/>
+    <!--<context:component-scan base-package="com.rpm.demo"/>-->
+    <!--<aop:aspectj-autoproxy/>-->
 
     <!--##################################################################################################-->
     <!-- 数据连接池 -->

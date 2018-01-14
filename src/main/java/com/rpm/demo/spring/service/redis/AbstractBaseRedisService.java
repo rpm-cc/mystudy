@@ -2,6 +2,7 @@ package com.rpm.demo.spring.service.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
@@ -10,10 +11,10 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  * @param <V>
  */
 
-public abstract class AbstractBaseRedisService<K, V> {
+public abstract class AbstractBaseRedisService {
 
     @Autowired
-    protected RedisTemplate<K, V> redisTemplate;
+    protected StringRedisTemplate redisTemplate;
 
     /**
      * 设置redisTemplate
@@ -21,7 +22,7 @@ public abstract class AbstractBaseRedisService<K, V> {
      * @param redisTemplate the redisTemplate to set
      */
 
-    public void setRedisTemplate(RedisTemplate<K, V> redisTemplate) {
+    public void setRedisTemplate(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

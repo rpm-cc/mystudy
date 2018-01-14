@@ -18,6 +18,9 @@ public class LockedRunnable implements Runnable {
         this.pay = pay;
     }
 
+    public synchronized static  void init(){
+
+    }
     @Override
     public void run() {
 
